@@ -26,7 +26,7 @@ The library contains a function called find that enables you to add a specific c
 
 ```py
 
-js.find({"age": 15}, "one")
+json_data = js.find({"age": 15}, "one")
 
 ```
 
