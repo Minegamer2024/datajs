@@ -16,6 +16,8 @@ class JS_file:
                 
     def find(self, data, option):
         data_file = [datas for datas in self.data[self.database][self.collection] for k, v in data.items() if datas[k] == v]
+        if not data_file:
+            return None
         if option == "one":
             data_find = data_file[0]
         elif option == "all":
@@ -28,8 +30,6 @@ class JS_file:
         if option == "one":
             self.data[self.database][self.collection].remove(data_file[0])
         elif option == "all":
-            if not data:
-                self.data[self.database][self.collection].clear()
             for x in data_file:
                 self.data[self.database][self.collection].remove(x)
         with open(self.file, "w", encoding="utf-8") as f:
