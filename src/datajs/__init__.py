@@ -7,7 +7,13 @@ class JS_file:
             self.data = json.load(f)
         self.database = None
         self.collection = None
-    
+        
+    def start(self):
+        if self.database not in self.data:
+            self.data[self.database] = {}
+        if self.collection not in self.data[self.database]:
+            self.data[self.database][self.collection] = []
+                
     def find(self, data, option):
         data_file = [datas for datas in self.data[self.database][self.collection] for k, v in data.items() if datas[k] == v]
         if option == "one":
@@ -32,11 +38,7 @@ class JS_file:
         
 
     def insert(self, data):
-        data_json = self.data[self.database][self.collection]
-        if not data_json:
-            data_json = data
-        else:
-            data_json.append(data)
+        self.data[self.database][self.collection].append(data)
         with open(self.file, "w", encoding="utf-8") as f:
             json.dump(self.data, f, ensure_ascii=False, indent=2)
 
